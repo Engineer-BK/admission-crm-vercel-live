@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Institution {
+  id        Int      @id @default(autoincrement())
+  name      String
+  code      String   @unique   // e.g. 'INST'
+  campuses  Campus[]
+}
+
+model Campus {
+  id            Int        @id @default(autoincrement())
+  name          String
+  institutionId Int
+  institution   Institution @relation(fields: [institutionId], references: [id])
+  departments   Department[]
+}
+
+model Department {
+  id       Int       @id @default(autoincrement())
+  name     String
+  campusId Int
+  campus   Campus    @relation(fields: [campusId], references: [id])
+  programs Program[]
+}
+
+model Program {
+  id            Int        @id @default(autoincrement())
+  name          String     // e.g. 'Computer Science and Engineering'
+  code          String     // e.g. 'CSE'
+  deptId        Int
+  dept          Department @relation(fields: [deptId], references: [id])
+  courseType    String     // 'UG' | 'PG'
+  entryType     String     // 'Regular' | 'Lateral'
+  admissionMode String     // 'Government' | 'Management'
+  academicYear  String     // e.g. '2025-26'
+  seatMatrix    SeatMatrix?
+  applicants    Applicant[]
+}
+
+model SeatMatrix {
+  id            Int     @id @default(autoincrement())
+  programId     Int     @unique
+  program       Program @relation(fields: [programId], references: [id])
+  totalIntake   Int
+  kcetSeats     Int     @default(0)
+  kcetFilled    Int     @default(0)
+  comedkSeats   Int     @default(0)
+  comedkFilled  Int     @default(0)
+  mgmtSeats     Int     @default(0)
+  mgmtFilled    Int     @default(0)
+}
+
+model Applicant {
+  id              Int      @id @default(autoincrement())
+  name            String
+  dob             String
+  gender          String
+  email           String
+  phone           String
+  category        String   // 'GM' | 'SC' | 'ST' | 'OBC'
+  entryType       String   // 'Regular' | 'Lateral'
+  quotaType       String   // 'KCET' | 'COMEDK' | 'Management'
+  marks           Float
+  qualifyingExam  String
+  allotmentNumber String?  // for Government flow
+  address         String
+  fatherName      String
+  aadharNumber    String
+  programId       Int
+  program         Program  @relation(fields: [programId], references: [id])
+  docStatus       String   @default("PENDING")  // PENDING|SUBMITTED|VERIFIED
+  feeStatus       String   @default("PENDING")  // PENDING|PAID
+  seatStatus      String   @default("APPLIED")  // APPLIED|ALLOCATED|CONFIRMED
+  admissionNumber String?  // Generated on confirmation — immutable once set
+  createdAt       DateTime @default(now())
+}
