@@ -80,7 +80,7 @@ export default function ApplicantDetailsPage({ params }: { params: Promise<{ id:
           <p className="text-orange-700 mb-4">You need to allocate a seat for this applicant before verifying documents or confirming admission.</p>
           <button 
             onClick={() => router.push(`/allocate/${id}`)}
-            className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition"
+            className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition cursor-pointer"
           >
             Go to Seat Allocation Action
           </button>
@@ -118,7 +118,7 @@ export default function ApplicantDetailsPage({ params }: { params: Promise<{ id:
             </div>
           </div>
           {applicant.feeStatus !== 'PAID' && (
-            <button onClick={markFeePaid} className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+            <button onClick={markFeePaid} className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-blue-700 transition cursor-pointer">
               Mark Fee as Paid
             </button>
           )}
@@ -132,7 +132,7 @@ export default function ApplicantDetailsPage({ params }: { params: Promise<{ id:
           <button 
             disabled={applicant.feeStatus !== 'PAID' || applicant.docStatus !== 'VERIFIED' || loading} 
             onClick={confirmAdmission} 
-            className="bg-indigo-600 disabled:bg-gray-400 disabled:shadow-none hover:shadow-lg hover:-translate-y-0.5 disabled:translate-y-0 transition-all text-white px-8 py-4 rounded-xl text-lg font-bold w-full"
+            className="bg-indigo-600 disabled:bg-gray-400 disabled:shadow-none hover:shadow-lg hover:-translate-y-0.5 disabled:translate-y-0 transition-all text-white px-8 py-4 rounded-xl text-lg font-bold w-full cursor-pointer disabled:cursor-not-allowed"
           >
             {loading ? 'Generating Immutable Record...' : 'Confirm Final Admission'}
           </button>

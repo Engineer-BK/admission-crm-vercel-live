@@ -56,7 +56,7 @@ export default function AllocatePage({ params }: { params: Promise<{ id: string 
           <button 
             onClick={handleAllocate} 
             disabled={loading} 
-            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-6 rounded-xl text-lg shadow-lg hover:shadow-orange-500/30 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-6 rounded-xl text-lg shadow-lg hover:shadow-orange-500/30 transition duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Processing DB Transaction...' : 'Confirm Atomic Allocation'}
           </button>
