@@ -16,7 +16,7 @@ Produced as an assignment for Edumerge.
 ## 💻 Tech Stack
 - **Framework:** Next.js 15 (App Router)
 - **Database ORM:** Prisma
-- **Database:** SQLite (for easy local setup without database servers)
+- **Database:** PostgreSQL (Neon Serverless DB, configured for Vercel deployment)
 - **Styling:** Tailwind CSS V4
 - **Language:** TypeScript
 
@@ -36,7 +36,7 @@ npm install
 ```
 
 ### 3. Initialize the Database
-This project uses SQLite. The initial migration will set up the tables locally.
+This project uses **PostgreSQL**. The remote connection is already configured. To configure your client and push tables to the cloud:
 ```bash
 npx prisma generate
 npx prisma db push
